@@ -62,18 +62,19 @@ class FilmController extends AbstractController
         try {/*//essaie supp la marque*/
             $this->em->remove($film);
             $this->em->flush();
-            return $this->json(['success' => true]); /*// si il y arrives , on retourne un success*/
+            return $this->json(['success' => true]);
         } catch (\Exception $e)/*//sinon*/ {
             return $this->json($e, 500);
         }
     }
 
     #[Route('', name: 'add', methods: ['POST'])]
-    public function add(Request $request)   /*httpFoundation*/
+    public function add(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         $form = $this->createForm(FilmType::class, new Film());
-        /* on récupère la requête*/
+
+        $form->
         $form->submit($data);
 
         if ($form->isSubmitted() and $form->isValid()) {
@@ -107,6 +108,5 @@ class FilmController extends AbstractController
         }
 
     }
-
 
 }
